@@ -2,8 +2,9 @@ pragma solidity >=0.8 <0.9.0;
 
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract CampaignWallet{
+contract CampaignWallet is ERC20{
 
     //the erc20 asset used to fund the wallet, ie. usdc
     address public asset;
@@ -19,7 +20,7 @@ contract CampaignWallet{
 
 
     function deposit(uint256 _amount) public returns (bool){
-        require(IERC20(asset).allowance(msg.sender, address(this)) >= _amount);
+        require(IERC20(asset).allowance(msg.sender, address(this)) >= _amount, "Not enough funds approved");
         return false;
     }
 
